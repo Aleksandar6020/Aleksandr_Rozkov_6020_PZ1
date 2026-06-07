@@ -70,4 +70,13 @@ public class ApplicationStorageService {
     public List<Comment> getComments() {
         return comments;
     }
+
+    public Manul getManulById(int id) {
+        for (Manul manul : manuls) {
+            if (manul.getId() == id) {
+                return manul;
+            }
+        }
+        return null;
+    }
 }

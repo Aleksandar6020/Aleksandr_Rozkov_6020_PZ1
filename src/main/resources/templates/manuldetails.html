@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manul Details</title>
 </head>
 <body>
+
+<h1 th:text="${manul.name}"></h1>
+
+<p th:text="${manul.shortDescription}"></p>
+<p th:text="${manul.longStory}"></p>
+
+<p>
+    <b>Location type:</b>
+    <span th:text="${manul.locationType}"></span>
+</p>
+
+<p>
+    <b>Region:</b>
+    <span th:text="${manul.region}"></span>
+</p>
+
+<p>
+    <b>Likes:</b>
+    <span th:text="${manul.likesCount}"></span>
+</p>
+
+<a href="/manuls">Back to manuls</a>
 
 </body>
 </html>
