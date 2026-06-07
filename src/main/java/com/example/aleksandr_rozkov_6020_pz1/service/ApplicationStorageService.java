@@ -19,6 +19,36 @@ public class ApplicationStorageService {
         suggestions = new ArrayList<>();
         categories = new ArrayList<>();
         comments = new ArrayList<>();
+
+        manuls.add(
+                new Manul(
+                        1,
+                        "Batu",
+                        "",
+                        "Famous manul",
+                        "Long story",
+                        "ZOO",
+                        "Russia",
+                        10,
+                        5,
+                        "2026"
+                )
+        );
+
+        manuls.add(
+                new Manul(
+                        2,
+                        "Mimi",
+                        "",
+                        "Cute manul",
+                        "Long story",
+                        "ZOO",
+                        "Finland",
+                        15,
+                        8,
+                        "2026"
+                )
+        );
     }
 
     public List<Manul> getManuls() {
