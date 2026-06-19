@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Manul Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<h1>Manul Blog Platform</h1>
-
-<p>Welcome to the Manul Blog Platform.</p>
-
-<ul>
-    <li><a href="/manuls">All Manuls</a></li>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/register">Register</a></li>
-    <li><a href="/admin">Admin</a></li>
-</ul>
-
+<div th:replace="~{fragments :: navbar}"></div>
+<main class="container hero">
+    <section class="heroText">
+        <p class="eyebrow">Pallas's cat blog platform</p>
+        <h1>Manul Blog Platform</h1>
+        <p>Simple Spring Boot MVC application about manuls. Users can read posts, like manuls once, comment and suggest stories. Admin can manage the catalog.</p>
+        <div class="actionRow">
+            <a class="button" href="/manuls">Open manuls</a>
+            <a class="button buttonSecondary" href="/register">Create account</a>
+        </div>
+    </section>
+</main>
 </body>
 </html>

@@ -1,31 +1,62 @@
 <!DOCTYPE html>
-<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Manul Details</title>
+    <meta charset="UTF-8">
+    <title th:text="${manul.name}">Manul Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div th:replace="~{fragments :: navbar}"></div>
+<main class="container">
+    <a class="backLink" href="/manuls">← Back to manuls</a>
+    <h1 th:text="${manul.name}"></h1>
+    <div class="details">
+        <img class="detailsImage" th:src="${manul.photoUrl}" th:alt="${manul.name}">
+        <section class="detailsBody">
+            <p class="story" th:text="${manul.longStory}"></p>
+            <div class="infoBox">
+                <p><b>Location type:</b> <span th:text="${manul.locationType}"></span></p>
+                <p><b>Region:</b> <span th:text="${manul.region}"></span></p>
+                <p><b>Created:</b> <span th:text="${manul.createdAt}"></span></p>
+            </div>
+            <div class="likeRow">
+                <span class="likeBadge" th:text="${manul.likesCount}"></span>
+                <form th:if="${currentUser != null}" th:action="@{/manuls/{id}/like(id=${manul.id})}" method="post">
+                    <button class="button likeButton" th:classappend="${likedByCurrentUser} ? ' likeButtonActive'" type="submit" th:disabled="${likedByCurrentUser}" th:text="${likedByCurrentUser} ? '♥ Liked' : '♡ Like'"></button>
+                </form>
+                <a th:if="${currentUser == null}" class="button buttonSecondary" href="/login">Login to like</a>
+            </div>
+        </section>
+    </div>
 
-<h1 th:text="${manul.name}"></h1>
+    <section class="sectionBlock">
+        <h2>Comments</h2>
+        <div class="comment" th:each="comment : ${comments}">
+            <p th:text="${comment.text}"></p>
+            <small th:text="${comment.createdAt}"></small>
+        </div>
+        <p class="muted" th:if="${#lists.isEmpty(comments)}">No comments yet.</p>
+        <form th:if="${currentUser != null}" class="form" th:action="@{/manuls/{id}/comments(id=${manul.id})}" method="post">
+            <div class="formRow">
+                <label class="label" for="commentText">Add comment</label>
+                <textarea id="commentText" class="input" name="text" required></textarea>
+            </div>
+            <button class="button" type="submit">Submit comment</button>
+        </form>
+    </section>
 
-<p th:text="${manul.shortDescription}"></p>
-<p th:text="${manul.longStory}"></p>
-
-<p>
-    <b>Location type:</b>
-    <span th:text="${manul.locationType}"></span>
-</p>
-
-<p>
-    <b>Region:</b>
-    <span th:text="${manul.region}"></span>
-</p>
-
-<p>
-    <b>Likes:</b>
-    <span th:text="${manul.likesCount}"></span>
-</p>
-
-<a href="/manuls">Back to manuls</a>
-
+    <section class="sectionBlock">
+        <h2>Suggest a story</h2>
+        <p class="muted">User suggestions are sent to the admin panel first.</p>
+        <form th:if="${currentUser != null}" class="form" th:action="@{/manuls/{id}/suggestions(id=${manul.id})}" method="post">
+            <div class="formRow">
+                <label class="label" for="suggestionText">Story suggestion</label>
+                <textarea id="suggestionText" class="input" name="content" required></textarea>
+            </div>
+            <button class="button" type="submit">Submit suggestion</button>
+        </form>
+        <a th:if="${currentUser == null}" class="button buttonSecondary" href="/login">Login to suggest</a>
+    </section>
+</main>
 </body>
 </html>

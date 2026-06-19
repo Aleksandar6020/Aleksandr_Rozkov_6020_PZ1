@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav class="navbar" th:fragment="navbar">
+    <div class="container navbarInner">
+        <a class="brand" href="/">Manul Blog</a>
+        <div class="navLinks">
+            <a href="/">Home</a>
+            <a href="/manuls">Manuls</a>
+            <a th:if="${currentUser == null}" href="/login">Login</a>
+            <a th:if="${currentUser == null}" href="/register">Register</a>
+            <a th:if="${currentUser != null and currentUser.role == 'admin'}" href="/admin">Admin</a>
+            <form th:if="${currentUser != null}" action="/logout" method="post" class="inlineForm">
+                <button class="button buttonSecondary" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

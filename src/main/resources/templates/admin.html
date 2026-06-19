@@ -1,22 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Admin Panel</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Admin Panel</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
 <body>
+<div th:replace="~{fragments :: navbar}"></div>
+<main class="container">
+    <h1>Admin panel</h1>
 
-<h1>Admin Panel</h1>
+    <h2>Create manul</h2>
+    <form class="form" action="/admin/manuls" method="post" th:object="${newManul}">
+        <div class="formRow"><label class="label">Name</label><input class="input" th:field="*{name}" required></div>
+        <div class="formRow"><label class="label">Photo URL</label><input class="input" th:field="*{photoUrl}" required></div>
+        <div class="formRow"><label class="label">Short description</label><input class="input" th:field="*{shortDescription}" required></div>
+        <div class="formRow"><label class="label">Long story</label><textarea class="input" th:field="*{longStory}" required></textarea></div>
+        <div class="formRow"><label class="label">Location type</label><select class="input" th:field="*{locationType}"><option value="ZOO">ZOO</option><option value="WILD">WILD</option></select></div>
+        <div class="formRow"><label class="label">Region</label><input class="input" th:field="*{region}" required></div>
+        <button class="button" type="submit">Create</button>
+    </form>
 
-<p>Administrative functions for managing manuls.</p>
+    <h2>Manage manuls</h2>
+    <div class="table">
+        <div class="row" th:each="manul : ${manuls}">
+            <div class="rowMain"><b th:text="${manul.name}"></b><br><span class="muted" th:text="${manul.region}"></span></div>
+            <div class="rowActions">
+                <a class="button buttonSecondary" th:href="@{/admin/manuls/{id}/edit(id=${manul.id})}">Edit</a>
+                <form th:action="@{/admin/manuls/{id}/delete(id=${manul.id})}" method="post"><button class="button buttonDanger" type="submit">Delete</button></form>
+            </div>
+        </div>
+    </div>
 
-<ul>
-    <li>View all manuls</li>
-    <li>Add new manul</li>
-    <li>Edit manul</li>
-    <li>Delete manul</li>
-</ul>
-
-<a href="/">Home</a>
-
+    <h2>Story suggestions</h2>
+    <div class="table">
+        <div class="row" th:each="suggestion : ${suggestions}" th:if="${suggestion.type == 'STORY'}">
+            <div class="rowMain"><b th:text="'Manul ID: ' + ${suggestion.manulId}"></b><br><span th:text="${suggestion.content}"></span><br><span class="muted" th:text="${suggestion.status}"></span></div>
+            <div class="rowActions" th:if="${suggestion.status == 'PENDING'}">
+                <form th:action="@{/admin/suggestions/{id}/approve(id=${suggestion.id})}" method="post"><button class="button" type="submit">Approve</button></form>
+                <form th:action="@{/admin/suggestions/{id}/reject(id=${suggestion.id})}" method="post"><button class="button buttonDanger" type="submit">Reject</button></form>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

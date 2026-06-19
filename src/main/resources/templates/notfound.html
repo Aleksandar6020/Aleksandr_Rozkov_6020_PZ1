@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Not Found</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Not Found</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
 <body>
-
-<h1>404 - Page Not Found</h1>
-
-<p>The requested page or item was not found.</p>
-
-<a href="/">Home</a>
-
+<div th:replace="~{fragments :: navbar}"></div>
+<main class="container narrow">
+    <h1>Page not found</h1>
+    <p>The requested page or item was not found.</p>
+    <a class="button" href="/">Go home</a>
+</main>
 </body>
 </html>

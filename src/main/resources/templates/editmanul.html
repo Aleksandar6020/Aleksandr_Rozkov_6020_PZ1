@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Edit Manul</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<main class="container narrow">
+    <h1>Edit manul</h1>
+    <form class="form" th:action="@{/admin/manuls/{id}/edit(id=${manul.id})}" method="post" th:object="${manul}">
+        <div class="formRow"><label class="label">Name</label><input class="input" th:field="*{name}" required></div>
+        <div class="formRow"><label class="label">Photo URL</label><input class="input" th:field="*{photoUrl}" required></div>
+        <div class="formRow"><label class="label">Short description</label><input class="input" th:field="*{shortDescription}" required></div>
+        <div class="formRow"><label class="label">Long story</label><textarea class="input" th:field="*{longStory}" required></textarea></div>
+        <div class="formRow"><label class="label">Location type</label><select class="input" th:field="*{locationType}"><option value="ZOO">ZOO</option><option value="WILD">WILD</option></select></div>
+        <div class="formRow"><label class="label">Region</label><input class="input" th:field="*{region}" required></div>
+        <div class="actionRow"><button class="button" type="submit">Save</button><a class="button buttonSecondary" href="/admin">Cancel</a></div>
+    </form>
+</main>
+</body>
+</html>

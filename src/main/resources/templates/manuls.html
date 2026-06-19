@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Manuls</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div th:replace="~{fragments :: navbar}"></div>
+<main class="container">
+    <div class="pageHeader">
+        <div>
+            <h1>Manuls</h1>
+            <p class="muted" th:text="'Total manuls: ' + ${total}"></p>
+        </div>
+        <form class="sortBox" action="/manuls" method="get">
+            <label class="label" for="sortBy">Sort by</label>
+            <select id="sortBy" name="sortBy" class="input" onchange="this.form.submit()">
+                <option value="createdAt" th:selected="${sortBy == 'createdAt'}">Newest</option>
+                <option value="likesCount" th:selected="${sortBy == 'likesCount'}">Likes</option>
+                <option value="name" th:selected="${sortBy == 'name'}">Name</option>
+            </select>
+        </form>
+    </div>
 
-<h1>All Manuls</h1>
+    <div class="cardGrid">
+        <article class="card" th:each="manul : ${manuls}">
+            <img class="cardImage" th:src="${manul.photoUrl}" th:alt="${manul.name}">
+            <h3 th:text="${manul.name}"></h3>
+            <p th:text="${manul.shortDescription}"></p>
+            <div class="metaRow">
+                <span th:text="${manul.region}"></span>
+                <span th:text="'♥ ' + ${manul.likesCount}"></span>
+            </div>
+            <a class="button" th:href="@{/manuls/{id}(id=${manul.id})}">Open</a>
+        </article>
+    </div>
 
-<ul>
-    <li th:each="manul : ${manuls}">
-        <a th:href="@{/manuls/{id}(id=${manul.id})}" th:text="${manul.name}"></a><span th:text="${manul.name}"></span>
-    </li>
-</ul>
-
-<a href="/">Home</a>
-
+    <div class="pagination">
+        <a class="button buttonSecondary" th:classappend="${page <= 1} ? ' disabled'" th:href="@{/manuls(sortBy=${sortBy}, page=${page - 1})}">Previous</a>
+        <span th:text="'Page ' + ${page} + ' of ' + ${totalPages}"></span>
+        <a class="button buttonSecondary" th:classappend="${page >= totalPages} ? ' disabled'" th:href="@{/manuls(sortBy=${sortBy}, page=${page + 1})}">Next</a>
+    </div>
+</main>
 </body>
 </html>

@@ -1,27 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Login</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Login</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
 <body>
-
-<h1>Login</h1>
-
-<form>
-    <label>Email:</label>
-    <input type="email" name="email">
-
-    <br><br>
-
-    <label>Password:</label>
-    <input type="password" name="password">
-
-    <br><br>
-
-    <button type="submit">Login</button>
-</form>
-
-<a href="/">Home</a>
-
+<div th:replace="~{fragments :: navbar}"></div>
+<main class="container narrow">
+    <h1>Login</h1>
+    <p class="success" th:if="${param.registered}">Registration successful. You can log in now.</p>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+    <form class="form" action="/login" method="post">
+        <div class="formRow"><label class="label" for="email">Email</label><input id="email" class="input" type="email" name="email" required></div>
+        <div class="formRow"><label class="label" for="password">Password</label><input id="password" class="input" type="password" name="password" required></div>
+        <button class="button" type="submit">Login</button>
+    </form>
+</main>
 </body>
 </html>

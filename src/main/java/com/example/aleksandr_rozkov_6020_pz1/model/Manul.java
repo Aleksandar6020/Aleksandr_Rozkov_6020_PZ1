@@ -9,13 +9,12 @@ public class Manul {
     private String locationType;
     private String region;
     private int likesCount;
-    private int favoritesCount;
     private String createdAt;
 
     public Manul() {
     }
 
-    public Manul(int id, String name, String photoUrl, String shortDescription, String longStory, String locationType, String region, int likesCount, int favoritesCount, String createdAt) {
+    public Manul(int id, String name, String photoUrl, String shortDescription, String longStory, String locationType, String region, int likesCount, String createdAt) {
         this.id = id;
         this.name = name;
         this.photoUrl = photoUrl;
@@ -24,7 +23,6 @@ public class Manul {
         this.locationType = locationType;
         this.region = region;
         this.likesCount = likesCount;
-        this.favoritesCount = favoritesCount;
         this.createdAt = createdAt;
     }
 
@@ -51,9 +49,6 @@ public class Manul {
 
     public int getLikesCount() { return likesCount; }
     public void setLikesCount(int likesCount) { this.likesCount = likesCount; }
-
-    public int getFavoritesCount() { return favoritesCount; }
-    public void setFavoritesCount(int favoritesCount) { this.favoritesCount = favoritesCount; }
 
     public String getCreatedAt() { return createdAt; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
